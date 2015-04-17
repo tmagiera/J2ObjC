@@ -1,17 +1,30 @@
 package com.example.tmagiera.j2objc;
 
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.common.eventbus.Subscribe;
+
+import External.*;
 
 public class MainActivity extends ActionBarActivity {
 
+    class EventBusLoginRecorder {
+        @Subscribe public void recordCustomerChange(LoginEvent loginEvent) {
+            Log.d("LoginEvent", loginEvent.loginSuccess ? "Success" : "Fail");
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LoginManagerFacade.login();
+        EventBusSingleton.register(new EventBusLoginRecorder());
     }
 
     @Override
