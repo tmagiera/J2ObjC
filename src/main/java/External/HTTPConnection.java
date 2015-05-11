@@ -42,26 +42,24 @@ class HTTPConnection implements Runnable {
         HttpURLConnection conn = null;
         
         try {
-            System.out.println("SendingRequest:"+url);
-            
             // Setup a URL connection
             URL address = new URL(url);
             conn = (HttpURLConnection) address.openConnection();
             conn.setUseCaches(false);
-            conn.setDoOutput(true);
-            conn.setConnectTimeout(3000);
+//            conn.setDoOutput(true);
+            conn.setConnectTimeout(30000);
+            Log.d("ParsedURL", conn.getRequestMethod() + " " + conn.getURL());
 
-            
             // Get the response
-            int responseCode = conn.getResponseCode();
-            if (responseCode != 200) {
-                System.out.println("Error - HTTP response code: " + responseCode);
-                httpRequestCallback.requestFailed("Error - HTTP response code: " + responseCode, requestTag);
-            } else {
+//            int responseCode = conn.getResponseCode();
+//            if (responseCode != 200) {
+//                System.out.println("Error - HTTP response code: " + responseCode);
+//                httpRequestCallback.requestFailed("Error - HTTP response code: " + responseCode, requestTag);
+//            } else {
                 String response = readFromInputStream(conn.getInputStream());
                 //System.out.println("Response:" + response);
                 httpRequestCallback.requestSuccess(response,requestTag);
-            }
+//            }
         }  catch (IOException e) {
             Log.d("HTTPConn", e.toString());
             System.out.println("Failed to call the WebService");
@@ -81,7 +79,7 @@ class HTTPConnection implements Runnable {
             while((line = reader.readLine()) != null) {
                 result.append(line);
             }
-            System.out.println(result.toString());
+            //System.out.println(result.toString());
             return URLDecoder.decode(result.toString(), "UTF-8");
         } catch (IOException e) {
             System.out.println("Failed to read from input stream");

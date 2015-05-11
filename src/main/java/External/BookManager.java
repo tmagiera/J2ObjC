@@ -60,13 +60,13 @@ class BookManager implements ServerRequestMessage, DownloadCallback, UnzipCallba
         ResponseParser parser = new ResponseParser();
         HashMap responseMap = null;
 
-        if(method == "getBooks") {
+        if(method.equals("getBooks")) {
             parser.parseGetBooksRequest(message);
             responseMap = parser.responseMap;
             synchronizeGetBooksResponseToDatabase(responseMap);
             getBookListById();
         }
-        else if(method == "getBooksById") {
+        else if(method.equals("getBooksById")) {
             parser.parseGetBooksByIdRequest(message);
             responseMap = parser.responseMap;
             synchronizeGetBooksByIdResponseToDatabase(responseMap);

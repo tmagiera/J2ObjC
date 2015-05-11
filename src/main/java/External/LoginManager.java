@@ -1,5 +1,7 @@
 package External;
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 import External.ServerRequestManager.ServerRequestMessage;
@@ -57,7 +59,8 @@ class LoginManager implements ServerRequestMessage {
         parser.parseLoginRequest(message);
         HashMap responseMap = parser.responseMap;
         String errorCode = (String)responseMap.get("errorCode");
-        if(errorCode != null && errorCode == "0") {
+        Log.d("errorCode", errorCode);
+        if(errorCode != null && errorCode.equals("0")) {
             sessionId = (String)responseMap.get("session");
             loginAccepted();
         }
@@ -70,7 +73,7 @@ class LoginManager implements ServerRequestMessage {
     private void loginAccepted() {
         loggedIn = true;
         loggingIn = false;
-        LoginEvent le = new LoginEvent("",true);
+        LoginEvent le = new LoginEvent("login successful", true);
         EventBusSingleton.post(le);
     }
     

@@ -10,7 +10,7 @@ class DatabaseManager {
 //
     
 //TEMP solution, until I get some sqlite framework transpiled
-private HashMap tempDB;
+private HashMap<String, Book> tempDB;
 //TEMP
     
 //singleton
@@ -43,7 +43,7 @@ private static DatabaseManager instance = null;
     
     public Book[] getBooksFromDatabase() {
         //TEMP
-        return (Book[])tempDB.values().toArray();
+        return (Book[]) tempDB.values().toArray(new Book[0]);
         //
     }
     

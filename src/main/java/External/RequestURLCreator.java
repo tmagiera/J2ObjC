@@ -1,12 +1,14 @@
 package External;
 
+import java.net.URLEncoder;
+
 class RequestURLCreator {
 
     private static final String SERVER_URL = "http://demo-bookshelf-assodb.ydp.eu/ctrl.php/api";
 
     
     public static String loginRequestURL(String user, String password) {
-        return SERVER_URL + "/verifyUser?login="+user+"&password="+password;
+        return SERVER_URL + "/verifyUser?login="+ URLEncoder.encode(user)  +"&password=" + URLEncoder.encode(password);
     }
 
     public static String getBooksRequestURL() {
